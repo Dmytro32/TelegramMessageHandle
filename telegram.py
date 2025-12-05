@@ -1,11 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 import pandas as pd
-from telethon import TelegramClient, events, sync
+from telethon import TelegramClient, events
 from multi_rake import Rake
 import stanza
 import datetime
-from telethon.errors import FloodWaitError
 import asyncio
 from telethon.tl.types import ReactionCustomEmoji, ReactionEmoji, ReactionPaid
 import re
@@ -97,7 +96,7 @@ class MyRequests:
             check=messagebox.askokcancel("Warning",f"start read  message of channel {self.channel_url}")
             if check:
             
-                if self.listening==False:
+                if not self.listening:
             
                     self.running=True
                     loop=asyncio.new_event_loop()
@@ -140,7 +139,7 @@ class MyRequests:
             self.api_id=api_id
             self.api_hash=api_hash
             self.channel_url=channel_url   
-        except  Exception as e:
+        except  Exception:
             messagebox.showerror("Error"," Bad id,hash or group id, check again" ) 
         self.connect_to_telegram()
     
